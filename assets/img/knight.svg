@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>Grandmaster Hub Knight Icon</title>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+  </defs>
+  <path fill="url(#grad)" d="M50 12a4 4 0 0 0-4-4H26L12 22l10 6-8 8v12h32l4-8-10-6 10-8z" opacity="0.85" />
+  <path fill="#020617" d="M24 40c0 4 4 6 8 6s8-2 8-6H24z" opacity="0.5" />
+  <circle cx="34" cy="22" r="3" fill="#0f172a" />
+</svg>
