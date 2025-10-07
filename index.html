@@ -1,352 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grandmaster Hub | Play & Learn Chess Online</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grandmaster Hub — Play, Solve, and Learn Chess</title>
+  <meta name="description" content="Grandmaster Hub is a modern chess experience for playing against Stockfish, solving adaptive puzzles, and studying interactive lessons." />
+  <link rel="icon" type="image/svg+xml" href="./assets/img/knight.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <link rel="preload" as="script" href="https://unpkg.com/chess.js@1.0.0/dist/chess.min.js" />
+  <link rel="preload" as="script" href="https://unpkg.com/chessboardjs@1.0.0/www/js/chessboard.js" />
+  <script src="https://unpkg.com/chess.js@1.0.0/dist/chess.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/www/css/chessboard.css" />
+  <script defer src="https://unpkg.com/chessboardjs@1.0.0/www/js/chessboard.js"></script>
+  <script defer type="module" src="./assets/js/puzzles.js"></script>
+  <script defer type="module" src="./assets/js/engine.js"></script>
+  <script defer type="module" src="./assets/js/main.js"></script>
 </head>
-<body>
-  <header class="site-header">
-    <div class="container nav-container">
-      <a class="logo" href="#">GrandmasterHub</a>
-      <nav id="primary-navigation" class="main-nav" aria-label="Primary">
-        <ul>
-          <li><a href="#play">Play</a></li>
-          <li><a href="#lessons">Lessons</a></li>
-          <li><a href="#puzzles">Puzzles</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#membership">Membership</a></li>
-        </ul>
-      </nav>
-      <div class="header-actions">
-        <button class="btn btn-secondary" type="button">Log in</button>
-        <button class="btn btn-primary" type="button">Join Now</button>
-      </div>
-      <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
+<body class="bg-slate-950 text-slate-100 antialiased">
+  <a class="skip-link" href="#play">Skip to Play section</a>
+  <header class="sticky top-0 z-40 backdrop-blur bg-slate-950/80 border-b border-slate-800">
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-4" aria-label="Main">
+      <a href="#" class="flex items-center gap-2 text-xl font-semibold tracking-tight">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-sky-500 text-slate-900 font-bold">GH</span>
+        Grandmaster Hub
+      </a>
+      <button id="nav-toggle" class="lg:hidden inline-flex items-center justify-center rounded-md border border-slate-700 p-2 text-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400" aria-expanded="false" aria-controls="mobile-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
       </button>
+      <div id="desktop-nav" class="hidden lg:flex items-center gap-8 text-sm font-medium">
+        <a class="nav-link" href="#play">Play</a>
+        <a class="nav-link" href="#lessons">Lessons</a>
+        <a class="nav-link" href="#puzzles">Puzzles</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#join">Join</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-3">
+        <span id="player-rating" class="rounded-full bg-slate-800 px-4 py-1 text-sm font-semibold">Rating 1200</span>
+        <a href="#join" class="btn-primary">Join Now</a>
+      </div>
+    </nav>
+    <div id="mobile-nav" class="lg:hidden hidden border-t border-slate-800 bg-slate-950/95">
+      <div class="px-4 py-4 space-y-2 text-base font-medium">
+        <a class="block nav-link" href="#play">Play</a>
+        <a class="block nav-link" href="#lessons">Lessons</a>
+        <a class="block nav-link" href="#puzzles">Puzzles</a>
+        <a class="block nav-link" href="#about">About</a>
+        <a class="block nav-link" href="#join">Join</a>
+      </div>
     </div>
   </header>
 
   <main>
-    <section class="hero" id="play">
-      <div class="container hero-content">
-        <div class="hero-text">
-          <h1>Master Every Move.</h1>
-          <p>
-            Challenge millions of players, sharpen your strategy with world-class coaches,
-            and experience the thrill of tournament-ready chess all in one place.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#membership">Start Playing</a>
-            <a class="btn btn-ghost" href="#features">Explore Features</a>
-          </div>
-          <div class="hero-metrics">
-            <article>
-              <h2>28M+</h2>
-              <p>Active players worldwide</p>
-            </article>
-            <article>
-              <h2>120K</h2>
-              <p>Daily live matches</p>
-            </article>
-            <article>
-              <h2>3,500+</h2>
-              <p>Interactive lessons</p>
-            </article>
-          </div>
-        </div>
-        <div class="hero-board" aria-hidden="true">
-          <div class="board-grid">
-            <!-- board squares generated by CSS -->
-          </div>
-          <div class="board-overlay">
-            <span class="badge">Live Blitz • 3|2</span>
-            <div class="player-card">
-              <div class="player">
-                <img src="https://avatars.dicebear.com/api/identicon/white.svg" alt="White player avatar" loading="lazy">
-                <span>AriaKnight • 2312</span>
+    <section class="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.15),_transparent_60%)]"></div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 relative">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="space-y-6">
+            <span class="inline-flex items-center gap-2 rounded-full border border-sky-500/40 bg-sky-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-sky-200">Built for ambitious chess improvers</span>
+            <h1 class="text-4xl sm:text-5xl font-bold tracking-tight leading-tight">Your next brilliant move starts on Grandmaster Hub.</h1>
+            <p class="text-lg text-slate-300 max-w-xl">Challenge a tuned Stockfish engine, sharpen tactics with adaptive puzzles, and study core principles from interactive lesson boards. All in a fast, accessible experience that works right in your browser.</p>
+            <div class="flex flex-wrap gap-3">
+              <a href="#play" class="btn-primary">Play vs Computer</a>
+              <a href="#puzzles" class="btn-ghost">Solve Tactics</a>
+              <a href="#lessons" class="btn-ghost">Study Lessons</a>
+            </div>
+            <dl class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6">
+              <div class="metric-card">
+                <dt class="text-sm text-slate-400">Daily games played</dt>
+                <dd id="metric-games" class="text-2xl font-semibold text-slate-100">0</dd>
               </div>
-              <div class="player">
-                <img src="https://avatars.dicebear.com/api/identicon/black.svg" alt="Black player avatar" loading="lazy">
-                <span>Hyperion • 2284</span>
+              <div class="metric-card">
+                <dt class="text-sm text-slate-400">Tactics solved</dt>
+                <dd id="metric-puzzles" class="text-2xl font-semibold text-slate-100">0</dd>
+              </div>
+              <div class="metric-card">
+                <dt class="text-sm text-slate-400">Lesson completions</dt>
+                <dd id="metric-lessons" class="text-2xl font-semibold text-slate-100">0</dd>
+              </div>
+              <div class="metric-card">
+                <dt class="text-sm text-slate-400">Community members</dt>
+                <dd id="metric-members" class="text-2xl font-semibold text-slate-100">0</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="relative">
+            <div class="glow-card">
+              <div id="hero-board" class="aspect-square rounded-2xl overflow-hidden border border-slate-800"></div>
+              <div class="mt-4 space-y-3 text-sm text-slate-300">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="font-semibold text-slate-100">Live Blitz Arena</p>
+                    <p class="text-xs text-slate-400">3 | 2 • Stockfish Skill 8</p>
+                  </div>
+                  <span class="rounded-full bg-emerald-500/10 px-3 py-1 text-emerald-300 text-xs font-semibold">Players online</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                  <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-3">
+                    <p class="text-slate-400">White</p>
+                    <p class="font-semibold text-slate-100">AriNova • 1962</p>
+                  </div>
+                  <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-3">
+                    <p class="text-slate-400">Black</p>
+                    <p class="font-semibold text-slate-100">Engine • 2100</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <button class="btn btn-secondary">Watch Match</button>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="feature-grid" id="features">
-      <div class="container">
-        <header class="section-heading">
-          <h2>Everything you need to play, learn, and compete.</h2>
-          <p>Whether you are looking to dominate your next tournament or playing your very first game, GrandmasterHub has you covered.</p>
-        </header>
-        <div class="grid">
-          <article class="feature-card">
-            <div class="icon" aria-hidden="true">♞</div>
-            <h3>Live &amp; Daily Play</h3>
-            <p>Play blitz, bullet, rapid, or correspondence games with intelligent matchmaking and anti-cheat protection.</p>
-            <a class="text-link" href="#play">Play a Live Game</a>
+    <section id="play" class="py-16 sm:py-20 bg-slate-950">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 class="text-3xl font-semibold tracking-tight">Play against the cloud Stockfish</h2>
+            <p class="mt-2 text-slate-300 max-w-2xl">Choose your side, set the difficulty from beginner to GM, and play a full game with legal move validation, highlighting, and real-time PGN export.</p>
+          </div>
+          <div class="flex items-center gap-3 text-sm text-slate-300">
+            <span class="inline-flex items-center gap-2 rounded-full border border-slate-700 px-3 py-1"><span class="h-2 w-2 rounded-full bg-emerald-400"></span>Engine ready</span>
+            <span class="inline-flex items-center gap-2 rounded-full border border-slate-700 px-3 py-1"><span class="h-2 w-2 rounded-full bg-sky-400"></span>Autosave on</span>
+          </div>
+        </div>
+        <div class="mt-10 grid lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] gap-10 items-start">
+          <div class="space-y-6">
+            <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-4 shadow-xl">
+              <div id="play-board" class="aspect-square rounded-xl overflow-hidden"></div>
+              <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                <div class="clock-card" aria-live="polite">
+                  <p class="text-xs uppercase tracking-widest text-slate-400">White</p>
+                  <p id="clock-white" class="text-xl font-semibold">3:00</p>
+                </div>
+                <div class="clock-card" aria-live="polite">
+                  <p class="text-xs uppercase tracking-widest text-slate-400">Black</p>
+                  <p id="clock-black" class="text-xl font-semibold">3:00</p>
+                </div>
+              </div>
+            </div>
+            <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-4 space-y-4">
+              <div class="flex flex-wrap items-center gap-4 text-sm">
+                <label class="w-full sm:w-auto text-slate-300" for="color-select">Play as</label>
+                <select id="color-select" class="field-select" aria-label="Choose starting color">
+                  <option value="white">White</option>
+                  <option value="black">Black</option>
+                  <option value="random">Random</option>
+                </select>
+                <label for="skill-range" class="text-slate-300">Difficulty <span id="skill-label" class="font-semibold text-slate-100">8 • Advanced</span></label>
+                <input id="skill-range" type="range" min="0" max="20" value="8" class="w-full sm:w-56" />
+                <label class="inline-flex items-center gap-2 text-slate-300">
+                  <input type="checkbox" id="timed-toggle" class="accent-sky-500" />
+                  3|2 clock
+                </label>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <button id="new-game" class="btn-primary" type="button">New Game</button>
+                <button id="undo-move" class="btn-secondary" type="button">Undo</button>
+                <button id="resign-game" class="btn-secondary" type="button">Resign</button>
+                <button id="offer-draw" class="btn-secondary" type="button">Offer Draw</button>
+                <button id="copy-fen" class="btn-secondary" type="button">Copy FEN</button>
+                <button id="copy-pgn" class="btn-secondary" type="button">Copy PGN</button>
+              </div>
+              <div class="space-y-2 text-sm text-slate-300">
+                <p id="game-status" class="font-semibold text-slate-100">Ready for a new game.</p>
+                <p id="engine-status" class="text-xs text-slate-400">Engine idle.</p>
+                <p id="game-result" class="text-sm text-emerald-300"></p>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-widest text-slate-400" for="pgn-text">PGN</label>
+                <textarea id="pgn-text" class="field-textarea" rows="6" readonly></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-6">
+            <article class="prose-invert max-w-none space-y-4">
+              <h3 class="text-2xl font-semibold">How it works</h3>
+              <p class="text-slate-300">We connect directly to the Stockfish WASM engine in your browser so every move is instant. Difficulty controls adjust the Skill Level option (0–20) alongside thoughtful engine timing defaults.</p>
+              <ul class="list-disc list-inside space-y-2 text-slate-300">
+                <li>Legal move validation powered by <code>chess.js</code> keeps play fair.</li>
+                <li>Smart move highlighting, sounds, and undo support accessible training.</li>
+                <li>Download your games instantly via PGN or FEN export.</li>
+              </ul>
+            </article>
+            <div class="rounded-2xl bg-slate-900/60 border border-slate-800 p-6 space-y-3 text-sm text-slate-300">
+              <h4 class="text-lg font-semibold text-slate-100">Accessibility &amp; UX</h4>
+              <p>Keyboard focus states, ARIA live announcements for check and mate, and high-contrast controls ensure everyone can play comfortably.</p>
+              <div id="status-live" class="sr-only" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="lessons" class="py-16 sm:py-20 bg-slate-900/60">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <h2 class="text-3xl font-semibold tracking-tight">Guided lessons with playable diagrams</h2>
+          <p class="mt-3 text-slate-300">Six foundational lessons walk you through essential concepts. Each diagram is interactive—drag through ideas, reset, and follow the highlighted arrows.</p>
+        </div>
+        <div class="mt-10 grid lg:grid-cols-2 gap-8">
+          <article class="lesson-card">
+            <h3 class="lesson-title">Opening Principles</h3>
+            <p>Fight for the center, develop pieces, and castle early to keep your king safe.</p>
+            <div class="lesson-board" data-fen="rnbqkbnr/pppppppp/8/8/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 1" data-arrows="e2e4,g1f3" data-orientation="white"></div>
           </article>
-          <article class="feature-card">
-            <div class="icon" aria-hidden="true">♝</div>
-            <h3>Immersive Lessons</h3>
-            <p>Follow guided lesson paths curated by grandmasters with interactive boards and instant feedback.</p>
-            <a class="text-link" href="#lessons">View Lesson Paths</a>
+          <article class="lesson-card">
+            <h3 class="lesson-title">Tactics Motifs</h3>
+            <p>Discover forks, pins, and skewers to convert initiative into material or mates.</p>
+            <div class="lesson-board" data-fen="r2q1rk1/ppp2ppp/2n2n2/2bp4/4P3/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 1" data-arrows="d1g4,e4e5" data-orientation="white"></div>
           </article>
-          <article class="feature-card">
-            <div class="icon" aria-hidden="true">♜</div>
-            <h3>Adaptive Puzzles</h3>
-            <p>Sharpen your tactics with puzzles that adjust to your skill level and highlight key motifs in real time.</p>
-            <a class="text-link" href="#puzzles">Solve a Puzzle</a>
+          <article class="lesson-card">
+            <h3 class="lesson-title">Endgame Fundamentals</h3>
+            <p>Activate the king, push passed pawns, and understand opposition in king and pawn endings.</p>
+            <div class="lesson-board" data-fen="8/8/2p3k1/1p1p1p1p/1P1P1P1P/2P3K1/8/8 w - - 0 1" data-arrows="g3f4,d4d5" data-orientation="white"></div>
           </article>
-          <article class="feature-card">
-            <div class="icon" aria-hidden="true">♛</div>
-            <h3>Live Broadcasts</h3>
-            <p>Watch elite tournaments with multi-language commentary, synchronized analysis, and AI insights.</p>
-            <a class="text-link" href="#events">See Upcoming Events</a>
+          <article class="lesson-card">
+            <h3 class="lesson-title">Attacking the King</h3>
+            <p>Coordinate your pieces, open lines, and aim at the king with forcing moves.</p>
+            <div class="lesson-board" data-fen="r1bq1rk1/ppp1bppp/2n1pn2/3p4/3P1B2/2PBPN2/P1P2PPP/RN1Q1RK1 w - - 0 1" data-arrows="c1h6,f4g5" data-orientation="white"></div>
+          </article>
+          <article class="lesson-card">
+            <h3 class="lesson-title">Defensive Technique</h3>
+            <p>Find resourceful defenses, trade into better endgames, and neutralize attacks.</p>
+            <div class="lesson-board" data-fen="r1b2rk1/ppp1qppp/2np1n2/4p3/2B1P3/2NP1N2/PPP2PPP/R1BQR1K1 b - - 0 1" data-arrows="c6d4,f6g4" data-orientation="black"></div>
+          </article>
+          <article class="lesson-card">
+            <h3 class="lesson-title">Transition to Strategy</h3>
+            <p>Transform advantages by improving the worst piece and creating weaknesses.</p>
+            <div class="lesson-board" data-fen="2rq1rk1/1b2bppp/p3pn2/1p1p4/3P4/2N1PN2/PPQ1BPPP/2RR2K1 w - - 0 1" data-arrows="c3e2,c2c7" data-orientation="white"></div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="split-section" id="lessons">
-      <div class="container split">
-        <div class="split-text">
-          <h2>Personal coaching with legendary instructors.</h2>
-          <p>
-            Unlock exclusive training plans with one-on-one mentorship from international masters and celebrated coaches.
-            Schedule private lessons, participate in group workshops, and receive deep engine-backed analysis of your games.
-          </p>
-          <ul class="feature-list">
-            <li><span>✅</span> Tailored study plans and weekly assessments</li>
-            <li><span>✅</span> Cloud-based game library with annotated reviews</li>
-            <li><span>✅</span> Integrated video lessons with chapter markers</li>
+    <section id="puzzles" class="py-16 sm:py-20 bg-slate-950">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 class="text-3xl font-semibold tracking-tight">Challenge yourself with adaptive puzzles</h2>
+            <p class="mt-2 text-slate-300 max-w-2xl">Start a curated puzzle, reveal hints powered by Stockfish, and track your streak with a simple Elo-style puzzle rating.</p>
+          </div>
+          <div class="rounded-full border border-slate-700 bg-slate-900/70 px-4 py-2 text-sm text-slate-300">
+            Rating <span id="puzzle-rating" class="font-semibold text-slate-100">1200</span> • Streak <span id="puzzle-streak" class="font-semibold text-slate-100">0</span>
+          </div>
+        </div>
+        <div class="mt-10 grid lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] gap-10 items-start">
+          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-4 shadow-xl">
+            <div id="puzzle-board" class="aspect-square rounded-xl overflow-hidden"></div>
+            <div class="mt-4 flex flex-wrap gap-3">
+              <button id="start-puzzle" class="btn-primary" type="button">Start Puzzle</button>
+              <button id="hint-puzzle" class="btn-secondary" type="button">Show Hint</button>
+              <button id="solution-puzzle" class="btn-secondary" type="button">Show Solution</button>
+              <button id="next-puzzle" class="btn-secondary" type="button">Next Puzzle</button>
+            </div>
+            <p id="puzzle-status" class="mt-4 text-sm text-slate-300">Press “Start Puzzle” to begin.</p>
+          </div>
+          <div class="space-y-4 text-sm text-slate-300">
+            <article class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-3">
+              <h3 class="text-lg font-semibold text-slate-100">Adaptive scoring</h3>
+              <p>The faster you solve, the more points you gain. Miss a line and the rating dips slightly while your streak resets.</p>
+              <ul class="space-y-2 list-disc list-inside">
+                <li>Hints highlight the best move arrow without spoiling the answer.</li>
+                <li>Solutions auto-play with SAN notation once you request them.</li>
+                <li>Your progress is saved locally, so come back anytime.</li>
+              </ul>
+            </article>
+            <article class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-3">
+              <h3 class="text-lg font-semibold text-slate-100">Daily training goals</h3>
+              <p>Complete five puzzles a day to maintain a streak badge. Each puzzle includes rating and tactical theme tags.</p>
+              <div class="grid grid-cols-2 gap-3 text-xs">
+                <div class="badge-card">Mate in 1</div>
+                <div class="badge-card">King Hunt</div>
+                <div class="badge-card">Calculation</div>
+                <div class="badge-card">Technique</div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-16 sm:py-20 bg-slate-900/60">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-5">
+          <h2 class="text-3xl font-semibold tracking-tight">Why Grandmaster Hub?</h2>
+          <p class="text-slate-300">Built for the modern improver, Grandmaster Hub keeps everything client-side so it works instantly on GitHub Pages. No sign-in required, just open the browser and start mastering chess.</p>
+          <ul class="space-y-3 text-slate-300">
+            <li class="flex gap-3"><span class="text-sky-400">♞</span><span>Seamless Stockfish integration with difficulty scaling.</span></li>
+            <li class="flex gap-3"><span class="text-sky-400">♝</span><span>50+ curated puzzles with adaptive rating and streak tracking.</span></li>
+            <li class="flex gap-3"><span class="text-sky-400">♜</span><span>Responsive layout, keyboard friendly controls, and offline-ready assets.</span></li>
           </ul>
-          <div class="cta-row">
-            <button class="btn btn-primary" type="button">Book a Coach</button>
-            <button class="btn btn-secondary" type="button">Browse Coaches</button>
-          </div>
         </div>
-        <div class="split-media">
-          <div class="video-card">
-            <div class="video-thumb" role="img" aria-label="Chess lesson video thumbnail"></div>
-            <div class="video-meta">
-              <strong>New Lesson Drop:</strong>
-              <span>"Dominate the Sicilian Defense" with GM Leila Navarro</span>
+        <div class="glow-card">
+          <h3 class="text-xl font-semibold text-slate-100">Membership tiers</h3>
+          <p class="text-sm text-slate-300 mt-2">Upgrading is optional—Grandmaster Hub is free to use. Support the project to unlock cosmetic themes and early lesson releases.</p>
+          <div class="mt-6 space-y-4">
+            <div class="tier-card">
+              <div class="flex items-center justify-between">
+                <h4 class="text-lg font-semibold text-slate-100">Free</h4>
+                <span class="text-xs uppercase tracking-widest text-emerald-300">Included</span>
+              </div>
+              <p class="text-sm text-slate-300">Casual games, daily puzzles, six lesson paths.</p>
             </div>
-            <button class="btn btn-ghost">Watch Preview</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="dark-section" id="puzzles">
-      <div class="container">
-        <header class="section-heading">
-          <h2>Train smarter with adaptive puzzles &amp; drills.</h2>
-          <p>Track your tactics rating in real time, analyze critical motifs, and compare your performance with peers.</p>
-        </header>
-        <div class="puzzle-panel">
-          <div class="puzzle-board" aria-hidden="true">
-            <div class="board-grid"></div>
-            <div class="puzzle-overlay">
-              <span class="badge">Tactics • Hard • 2315</span>
-              <p>Find the winning tactic for White.</p>
-              <button class="btn btn-primary" type="button">Show Solution</button>
+            <div class="tier-card highlight">
+              <div class="flex items-center justify-between">
+                <h4 class="text-lg font-semibold text-slate-100">Pro</h4>
+                <span class="text-xs uppercase tracking-widest text-sky-300">Popular</span>
+              </div>
+              <p class="text-sm text-slate-300">Custom themes, advanced puzzle sets, engine annotations.</p>
+            </div>
+            <div class="tier-card">
+              <div class="flex items-center justify-between">
+                <h4 class="text-lg font-semibold text-slate-100">Elite</h4>
+                <span class="text-xs uppercase tracking-widest text-purple-300">Limited</span>
+              </div>
+              <p class="text-sm text-slate-300">Coach office hours, invitational events, early features.</p>
             </div>
           </div>
-          <div class="puzzle-stats">
-            <article>
-              <h3>Rating Progress</h3>
-              <p><span class="progress-value" data-target="2384">0</span> Rating</p>
-              <div class="progress-bar"><span></span></div>
-            </article>
-            <article>
-              <h3>Accuracy</h3>
-              <p>Last 30 puzzles: <strong>92%</strong></p>
-            </article>
-            <article>
-              <h3>Weekly Goal</h3>
-              <p>42 / 50 puzzles completed</p>
-              <button class="btn btn-secondary" type="button">Continue Streak</button>
-            </article>
-          </div>
         </div>
       </div>
     </section>
 
-    <section class="events-section" id="events">
-      <div class="container">
-        <header class="section-heading">
-          <h2>Elite events, community tournaments, and broadcasts.</h2>
-          <p>From global championships to local club showdowns, follow the action live with expert commentary.</p>
-        </header>
-        <div class="events-grid">
-          <article class="event-card">
-            <span class="event-tag">Live Now</span>
-            <h3>Champions Super League</h3>
-            <p>Round-robin featuring the world’s top 10 blitz specialists.</p>
-            <time datetime="2025-05-14">May 14, 2025</time>
-            <button class="btn btn-primary">Watch Broadcast</button>
-          </article>
-          <article class="event-card">
-            <span class="event-tag upcoming">Upcoming</span>
-            <h3>Global Arena Open</h3>
-            <p>24-hour arena with cash prizes and titled-only finals.</p>
-            <time datetime="2025-06-01">June 1, 2025</time>
-            <button class="btn btn-secondary">Register to Play</button>
-          </article>
-          <article class="event-card">
-            <span class="event-tag community">Community</span>
-            <h3>Women in Chess Summit</h3>
-            <p>Workshops, lectures, and team battles celebrating women in chess.</p>
-            <time datetime="2025-07-18">July 18, 2025</time>
-            <button class="btn btn-ghost">Explore Agenda</button>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="membership-section" id="membership">
-      <div class="container">
-        <header class="section-heading">
-          <h2>Choose your path to mastery.</h2>
-          <p>Flexible plans designed for casual players, ambitious improvers, and professionals preparing for the big stage.</p>
-        </header>
-        <div class="plans-grid">
-          <article class="plan-card">
-            <h3>Starter</h3>
-            <p class="price">Free</p>
-            <ul>
-              <li>Unlimited casual games</li>
-              <li>Daily puzzle challenge</li>
-              <li>Community tournaments</li>
-            </ul>
-            <button class="btn btn-secondary" type="button">Join Free</button>
-          </article>
-          <article class="plan-card highlighted">
-            <div class="badge">Popular</div>
-            <h3>Pro</h3>
-            <p class="price">$12<span>/mo</span></p>
-            <ul>
-              <li>All Starter features</li>
-              <li>Unlimited lessons &amp; drills</li>
-              <li>Engine-assisted analysis</li>
-              <li>Live tournament broadcasts</li>
-            </ul>
-            <button class="btn btn-primary" type="button">Upgrade to Pro</button>
-          </article>
-          <article class="plan-card">
-            <h3>Elite</h3>
-            <p class="price">$29<span>/mo</span></p>
-            <ul>
-              <li>Personal coaching session monthly</li>
-              <li>Advanced game insights</li>
-              <li>Priority tournament seeding</li>
-              <li>Exclusive community events</li>
-            </ul>
-            <button class="btn btn-secondary" type="button">Go Elite</button>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="testimonials">
-      <div class="container">
-        <header class="section-heading">
-          <h2>Players and coaches love GrandmasterHub.</h2>
-        </header>
-        <div class="testimonial-grid">
-          <figure>
-            <blockquote>
-              “GrandmasterHub transformed our club’s training program. The analysis board is second to none.”
-            </blockquote>
-            <figcaption>
-              <strong>IM Xavier Chen</strong>
-              <span>Coach, Boston Knights Academy</span>
-            </figcaption>
-          </figure>
-          <figure>
-            <blockquote>
-              “The adaptive puzzles are the perfect mix of challenge and learning. My rating jumped 200 points in a month!”
-            </blockquote>
-            <figcaption>
-              <strong>Maria Solis</strong>
-              <span>Competitive Player</span>
-            </figcaption>
-          </figure>
-          <figure>
-            <blockquote>
-              “Live commentary with synchronized engine lines makes every broadcast feel like a masterclass.”
-            </blockquote>
-            <figcaption>
-              <strong>GM Pavel Andreyev</strong>
-              <span>Grandmaster &amp; Commentator</span>
-            </figcaption>
-          </figure>
+    <section id="join" class="py-16 sm:py-20 bg-slate-950">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+        <h2 class="text-3xl font-semibold tracking-tight">Join thousands of players improving every day.</h2>
+        <p class="text-lg text-slate-300">Everything runs client-side so you can fork, remix, and deploy instantly. Ready to contribute puzzles or lessons? Check the README for contribution guidelines.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="https://github.com/" class="btn-primary">View Source on GitHub</a>
+          <a href="#puzzles" class="btn-ghost">Continue Training</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <a class="logo" href="#">GrandmasterHub</a>
-        <p>Play. Learn. Compete. Elevate your chess journey with a platform built for champions.</p>
-        <div class="social-links" aria-label="Social media">
-          <a href="https://twitch.tv">
-            <span aria-hidden="true">🎥</span>
-            <span class="sr-only">Twitch</span>
-          </a>
-          <a href="https://youtube.com">
-            <span aria-hidden="true">▶️</span>
-            <span class="sr-only">YouTube</span>
-          </a>
-          <a href="https://twitter.com">
-            <span aria-hidden="true">🐦</span>
-            <span class="sr-only">Twitter</span>
-          </a>
+  <footer class="bg-slate-950 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid gap-8 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
+      <div class="space-y-4">
+        <a href="#" class="inline-flex items-center gap-2 text-lg font-semibold text-slate-100">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-sky-500 text-slate-900 font-bold">GH</span>
+          Grandmaster Hub
+        </a>
+        <p class="text-sm text-slate-400">Play. Solve. Learn. A polished chess training suite optimized for browsers.</p>
+        <div class="flex items-center gap-3 text-lg">
+          <a href="https://www.youtube.com" class="text-slate-400 hover:text-sky-300">YouTube<span class="sr-only">YouTube</span></a>
+          <a href="https://www.twitch.tv" class="text-slate-400 hover:text-sky-300">Twitch<span class="sr-only">Twitch</span></a>
+          <a href="https://www.twitter.com" class="text-slate-400 hover:text-sky-300">X<span class="sr-only">X</span></a>
         </div>
       </div>
       <div>
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="#lessons">Lessons</a></li>
-          <li><a href="#puzzles">Puzzles</a></li>
-          <li><a href="#events">Events</a></li>
+        <h4 class="text-sm font-semibold uppercase tracking-widest text-slate-400">Platform</h4>
+        <ul class="mt-3 space-y-2 text-sm text-slate-300">
+          <li><a class="footer-link" href="#play">Play</a></li>
+          <li><a class="footer-link" href="#lessons">Lessons</a></li>
+          <li><a class="footer-link" href="#puzzles">Puzzles</a></li>
         </ul>
       </div>
       <div>
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Community Guidelines</a></li>
-          <li><a href="#">Contact</a></li>
+        <h4 class="text-sm font-semibold uppercase tracking-widest text-slate-400">Policies</h4>
+        <ul class="mt-3 space-y-2 text-sm text-slate-300">
+          <li><a class="footer-link" href="#">Terms of Service</a></li>
+          <li><a class="footer-link" href="#">Privacy Policy</a></li>
         </ul>
       </div>
       <div>
-        <h4>Stay Updated</h4>
-        <form class="newsletter" aria-label="Subscribe to newsletter">
-          <label class="sr-only" for="newsletter-email">Email</label>
-          <input type="email" id="newsletter-email" name="email" placeholder="you@example.com" required>
-          <button class="btn btn-primary" type="submit">Subscribe</button>
+        <h4 class="text-sm font-semibold uppercase tracking-widest text-slate-400">Newsletter</h4>
+        <form class="mt-3 space-y-3" aria-label="Subscribe for updates">
+          <label class="sr-only" for="newsletter">Email address</label>
+          <input id="newsletter" type="email" required placeholder="you@example.com" class="field-input" />
+          <button type="submit" class="btn-primary w-full">Subscribe</button>
         </form>
       </div>
     </div>
-    <p class="footer-note">© 2025 GrandmasterHub. Built for the global chess community.</p>
+    <div class="border-t border-slate-800 py-4 text-center text-xs text-slate-500">
+      © <span id="footer-year"></span> Grandmaster Hub. MIT Licensed. All client-side.
+    </div>
   </footer>
-
-  <script src="assets/js/app.js" defer></script>
 </body>
 </html>
